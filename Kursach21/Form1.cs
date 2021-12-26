@@ -12,6 +12,14 @@ namespace Kursach21
 {
     public partial class Form1 : Form
     {
+        //Делаем единый размер ячеек
+        void setCells(DataGridView x)
+        {
+            x.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            x.AutoResizeColumns();
+            x.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -20,26 +28,11 @@ namespace Kursach21
             FirstTable.AllowUserToAddRows = false;
             SecondTable.AllowUserToAddRows = false;
 
-            //Делаем единый размер ячеек
-            FirstTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            FirstTable.AutoResizeColumns();
-            FirstTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            SecondTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            SecondTable.AutoResizeColumns();
-            SecondTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            AlgProiz.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            AlgProiz.AutoResizeColumns();
-            AlgProiz.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            AlgSum.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            AlgSum.AutoResizeColumns();
-            AlgSum.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-            Dizun.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            Dizun.AutoResizeColumns();
-            Dizun.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            setCells(FirstTable);
+            setCells(SecondTable);
+            setCells(AlgProiz);
+            setCells(AlgSum);
+            setCells(Dizun);
         }
 
         //Задаем кол-во строк и столбцов
