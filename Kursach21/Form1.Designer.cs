@@ -79,6 +79,7 @@ namespace Kursach21
             this.DrawGrafs.TabIndex = 2;
             this.DrawGrafs.Text = "Draw Grafs";
             this.DrawGrafs.UseVisualStyleBackColor = true;
+            this.DrawGrafs.Click += new System.EventHandler(this.DrawGrafs_Click);
             // 
             // FirstTable
             // 
@@ -204,6 +205,7 @@ namespace Kursach21
             this.MinimumSize = new System.Drawing.Size(1050, 490);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.FirstTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecondTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlgProiz)).EndInit();

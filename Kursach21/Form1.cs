@@ -50,7 +50,7 @@ namespace Kursach21
 
             FirstTable.ColumnCount = weightOfTables;
             FirstTable.RowCount = heightOfTables;
-            
+
             SecondTable.ColumnCount = weightOfTables;
             SecondTable.RowCount = heightOfTables;
 
@@ -66,9 +66,9 @@ namespace Kursach21
             //Рандом для тестов
             var random = new Random();
 
-            for(int i = 0; i < heightOfTables; i++)
+            for (int i = 0; i < FirstTable.RowCount; i++)
             {
-                for(int j = 0; j < weightOfTables; j++)
+                for (int j = 0; j < FirstTable.ColumnCount; j++)
                 {
                     FirstTable.Rows[i].Cells[j].Value = Math.Round(random.NextDouble(), 1);
                     SecondTable.Rows[i].Cells[j].Value = Math.Round(random.NextDouble(), 1);
@@ -120,6 +120,22 @@ namespace Kursach21
                     Dizun.Rows[i].Cells[j].Value = Math.Round(value, 1);
                 }
             }
+        }
+
+        private void DrawGrafs_Click(object sender, EventArgs e)
+        {
+            Invalidate();
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            var test = e.Graphics;
+
+            var linePen = new Pen(Brushes.Black, 1.0f);
+            var valuePen = new Pen(Brushes.DarkViolet, 4.0f);
+
+            test.DrawLine(linePen, 370, 370, 390, 390);
+            test.DrawLine(valuePen, 390, 390, 410, 410);
         }
     }
 }
