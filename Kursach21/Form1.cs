@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Kursach21
 {
+    //Структура для массивов
     public struct coords
     {
         public int coordX;
@@ -129,6 +124,7 @@ namespace Kursach21
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            //Проверка, чтобы не рисовать при запуске формы
             if (check)
             {
                 //Массивы для координат стрелок
