@@ -159,27 +159,27 @@ namespace Kursach21
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(284, 165);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(179, 15);
+            this.label3.Size = new System.Drawing.Size(178, 15);
             this.label3.TabIndex = 12;
-            this.label3.Text = "Алгеброическое произведение";
+            this.label3.Text = "Алгебраическое произведение";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(530, 168);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(137, 15);
+            this.label4.Size = new System.Drawing.Size(136, 15);
             this.label4.TabIndex = 13;
-            this.label4.Text = "Алгеброическая сумма";
+            this.label4.Text = "Алгебраическая сумма";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(776, 168);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 15);
+            this.label5.Size = new System.Drawing.Size(77, 15);
             this.label5.TabIndex = 14;
-            this.label5.Text = "label5";
+            this.label5.Text = "Дизъюнкция";
             // 
             // Form1
             // 

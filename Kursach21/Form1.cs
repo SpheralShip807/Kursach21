@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,12 @@ using System.Windows.Forms;
 
 namespace Kursach21
 {
+    public struct coords
+    {
+        public int coordX;
+        public int coordY;
+    }
+
     public partial class Form1 : Form
     {
         //Делаем единый размер ячеек
@@ -18,15 +25,14 @@ namespace Kursach21
             x.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             x.AutoResizeColumns();
             x.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            x.AllowUserToAddRows = false;//Запрет создавать новые строки
         }
+
+        bool check = false;
 
         public Form1()
         {
             InitializeComponent();
-
-            //Запрет создавать новые строки
-            FirstTable.AllowUserToAddRows = false;
-            SecondTable.AllowUserToAddRows = false;
 
             setCells(FirstTable);
             setCells(SecondTable);
@@ -117,18 +123,87 @@ namespace Kursach21
 
         private void DrawGrafs_Click(object sender, EventArgs e)
         {
+            check = true;
             Invalidate();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            var test = e.Graphics;
+            if (check)
+            {
+                //Массивы для координат стрелок
+                var arrayOfxCoordsProiz = new coords[FirstTable.RowCount];
+                var arrayOfxCoordsSum = new coords[FirstTable.RowCount];
+                var arrayOfxCoordsDizun= new coords[FirstTable.RowCount];
 
-            var linePen = new Pen(Brushes.Black, 1.0f);
-            var valuePen = new Pen(Brushes.DarkViolet, 4.0f);
+                var arrayOfyCoordsProiz = new coords[FirstTable.ColumnCount];
+                var arrayOfyCoordsSum = new coords[FirstTable.ColumnCount];
+                var arrayOfyCoordsDizun= new coords[FirstTable.ColumnCount];
 
-            test.DrawLine(linePen, 370, 370, 390, 390);
-            test.DrawLine(valuePen, 390, 390, 410, 410);
+                //Переменная для отрисовки
+                var test = e.Graphics;
+
+                //Ручки для отрисовки
+                var linePen = new Pen(Brushes.Black, 1.0f);
+                var valuePen = new Pen(Brushes.DarkViolet, 4.0f);
+
+                //Стрелка на конце линии
+                valuePen.StartCap = LineCap.ArrowAnchor;
+                valuePen.CustomEndCap = new AdjustableArrowCap(3, 5);
+
+                //Подпись вершин
+                var font = new Font("Times New Roman", 8.0f);
+                var fontBrush = new SolidBrush(Color.Black);
+
+                void paintXFun(coords[] arrayName, int startXCoord, int yMove, int repeat)
+                {
+                    test.DrawEllipse(linePen, startXCoord, yMove, 10, 10);
+                    test.DrawString($"X{repeat + 1}", font, fontBrush, new Point(startXCoord - 18, yMove));
+
+                    arrayName[repeat].coordX = startXCoord;
+                    arrayName[repeat].coordY = yMove + 5;
+                }
+                
+                void paintYFun(coords[] arrayName, int startXCoord, int yMove, int repeat)
+                {
+                    test.DrawEllipse(linePen, startXCoord, yMove, 10, 10);
+                    test.DrawString($"Y{repeat + 1}", font, fontBrush, new Point(startXCoord + 13, yMove));
+
+                    arrayName[repeat].coordX = startXCoord;
+                    arrayName[repeat].coordY = yMove + 5;
+                }
+
+                //Рисуем вершины
+                for (int i = 0; i < FirstTable.RowCount; i++)
+                {
+                    var move = 230 / FirstTable.RowCount;
+                    var y = 200 + move * i;
+
+                    paintXFun(arrayOfxCoordsProiz, 300, y, i);
+                    paintXFun(arrayOfxCoordsSum, 550, y, i);
+                    paintXFun(arrayOfxCoordsDizun, 800, y, i);
+                }
+
+                for (int j = 0; j < FirstTable.ColumnCount; j++)
+                {
+                    var move = 230 / FirstTable.ColumnCount;
+
+                    var y = 200 + move * j;
+
+                    paintYFun(arrayOfyCoordsProiz, 480, y, j);
+                    paintYFun(arrayOfyCoordsSum, 730, y, j);
+                    paintYFun(arrayOfyCoordsDizun, 980, y, j);
+                }
+
+                //Рисуем стрелки
+                for (int i = 0; i < FirstTable.RowCount; i++)
+                {
+                    for (int j = 0; j < FirstTable.ColumnCount; j++)
+                    {
+
+                    }
+                }
+            }
         }
     }
 }
