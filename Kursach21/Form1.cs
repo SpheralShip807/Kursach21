@@ -145,7 +145,7 @@ namespace Kursach21
 
                 //Ручки для отрисовки
                 var linePen = new Pen(Brushes.Black, 1.0f);
-                var valuePen = new Pen(Brushes.DarkViolet, 4.0f);
+                var valuePen = new Pen(Brushes.DarkViolet, 1.0f);
 
                 //Стрелка на конце линии
                 valuePen.StartCap = LineCap.ArrowAnchor;
@@ -155,6 +155,7 @@ namespace Kursach21
                 var font = new Font("Times New Roman", 8.0f);
                 var fontBrush = new SolidBrush(Color.Black);
 
+                //Функции отрисовки для избежания повторов
                 void paintXFun(coords[] arrayName, int startXCoord, int yMove, int repeat)
                 {
                     test.DrawEllipse(linePen, startXCoord, yMove, 10, 10);
@@ -173,6 +174,12 @@ namespace Kursach21
                     arrayName[repeat].coordY = yMove + 5;
                 }
 
+                void paintLines(DataGridView tableName, coords[] arrayNameX, coords[] arrayNameY, int forX, int forY)
+                {
+                    if (Convert.ToDouble(tableName.Rows[forX].Cells[forY].Value) > 0)
+                        test.DrawLine(valuePen, arrayNameX[forX].coordX, arrayNameX[forX].coordY, arrayNameY[forY].coordX, arrayNameY[forY].coordY);
+                }
+
                 //Рисуем вершины
                 for (int i = 0; i < FirstTable.RowCount; i++)
                 {
@@ -187,7 +194,6 @@ namespace Kursach21
                 for (int j = 0; j < FirstTable.ColumnCount; j++)
                 {
                     var move = 230 / FirstTable.ColumnCount;
-
                     var y = 200 + move * j;
 
                     paintYFun(arrayOfyCoordsProiz, 480, y, j);
@@ -200,7 +206,9 @@ namespace Kursach21
                 {
                     for (int j = 0; j < FirstTable.ColumnCount; j++)
                     {
-
+                        paintLines(AlgProiz, arrayOfxCoordsProiz, arrayOfyCoordsProiz, i, j);
+                        paintLines(AlgSum, arrayOfxCoordsSum, arrayOfyCoordsSum, i, j);
+                        paintLines(Dizun, arrayOfxCoordsDizun, arrayOfyCoordsDizun, i, j);
                     }
                 }
             }
