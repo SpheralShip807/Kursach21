@@ -93,10 +93,7 @@ namespace Kursach21
                 {
                     value = Convert.ToDouble(FirstTable.Rows[i].Cells[j].Value) + Convert.ToDouble(SecondTable.Rows[i].Cells[j].Value)
                         - Convert.ToDouble(FirstTable.Rows[i].Cells[j].Value) * Convert.ToDouble(SecondTable.Rows[i].Cells[j].Value);
-                    if (value >= 1)
-                        AlgSum.Rows[i].Cells[j].Value = 1;
-                    else
-                        AlgSum.Rows[i].Cells[j].Value = Math.Round(value, 1);
+                    AlgSum.Rows[i].Cells[j].Value = Math.Round(value, 2);
                 }
             }
 
@@ -157,7 +154,7 @@ namespace Kursach21
                     test.DrawEllipse(linePen, startXCoord, yMove, 10, 10);
                     test.DrawString($"X{repeat + 1}", font, fontBrush, new Point(startXCoord - 18, yMove));
 
-                    arrayName[repeat].coordX = startXCoord;
+                    arrayName[repeat].coordX = startXCoord + 5;
                     arrayName[repeat].coordY = yMove + 5;
                 }
                 
@@ -166,13 +163,13 @@ namespace Kursach21
                     test.DrawEllipse(linePen, startXCoord, yMove, 10, 10);
                     test.DrawString($"Y{repeat + 1}", font, fontBrush, new Point(startXCoord + 13, yMove));
 
-                    arrayName[repeat].coordX = startXCoord;
+                    arrayName[repeat].coordX = startXCoord + 5;
                     arrayName[repeat].coordY = yMove + 5;
                 }
 
                 void paintLines(DataGridView tableName, coords[] arrayNameX, coords[] arrayNameY, int forX, int forY)
                 {
-                    if (Convert.ToDouble(tableName.Rows[forX].Cells[forY].Value) > 0)
+                    if (Convert.ToDouble(tableName.Rows[forX].Cells[forY].Value) != 0)
                         test.DrawLine(valuePen, arrayNameX[forX].coordX, arrayNameX[forX].coordY, arrayNameY[forY].coordX, arrayNameY[forY].coordY);
                 }
 
