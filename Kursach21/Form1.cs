@@ -23,6 +23,13 @@ namespace Kursach21
             x.AllowUserToAddRows = false;//Запрет создавать новые строки
         }
 
+        //Задаём размеры таблицы
+        void createTables(DataGridView name, int x, int y)
+        {
+            name.ColumnCount = x;
+            name.RowCount = y;
+        }
+
         bool check = false;
 
         public Form1()
@@ -42,20 +49,11 @@ namespace Kursach21
             var heightOfTables = Convert.ToInt32(TablesHeight.Text);
             var weightOfTables = Convert.ToInt32(TablesWeight.Text);
 
-            FirstTable.ColumnCount = weightOfTables;
-            FirstTable.RowCount = heightOfTables;
-
-            SecondTable.ColumnCount = weightOfTables;
-            SecondTable.RowCount = heightOfTables;
-
-            AlgProiz.ColumnCount = weightOfTables;
-            AlgProiz.RowCount = heightOfTables;
-
-            AlgSum.ColumnCount = weightOfTables;
-            AlgSum.RowCount = heightOfTables;
-
-            Dizun.ColumnCount = weightOfTables;
-            Dizun.RowCount = heightOfTables;
+            createTables(FirstTable, weightOfTables, heightOfTables);
+            createTables(SecondTable, weightOfTables, heightOfTables);
+            createTables(AlgProiz, weightOfTables, heightOfTables);
+            createTables(AlgSum, weightOfTables, heightOfTables);
+            createTables(Dizun, weightOfTables, heightOfTables);
 
             //Рандом для тестов
             var random = new Random();
@@ -82,7 +80,7 @@ namespace Kursach21
                 {
                     value = Convert.ToDouble(FirstTable.Rows[i].Cells[j].Value) * Convert.ToDouble(SecondTable.Rows[i].Cells[j].Value);
 
-                    AlgProiz.Rows[i].Cells[j].Value = Math.Round(value, 1);
+                    AlgProiz.Rows[i].Cells[j].Value = Math.Round(value, 2);
                 }
             }
 
@@ -108,7 +106,7 @@ namespace Kursach21
 
                     value = Math.Max(Math.Min(first, 1 - second), Math.Min(1 - first, second));
 
-                    Dizun.Rows[i].Cells[j].Value = Math.Round(value, 1);
+                    Dizun.Rows[i].Cells[j].Value = Math.Round(value, 2);
                 }
             }
         }
@@ -148,7 +146,7 @@ namespace Kursach21
                 var font = new Font("Times New Roman", 8.0f);
                 var fontBrush = new SolidBrush(Color.Black);
 
-                //Функции отрисовки для избежания повторов
+                //Функции отрисовки
                 void paintXFun(coords[] arrayName, int startXCoord, int yMove, int repeat)
                 {
                     test.DrawEllipse(linePen, startXCoord, yMove, 10, 10);
@@ -173,11 +171,13 @@ namespace Kursach21
                         test.DrawLine(valuePen, arrayNameX[forX].coordX, arrayNameX[forX].coordY, arrayNameY[forY].coordX, arrayNameY[forY].coordY);
                 }
 
+                var moveX = 230 / FirstTable.RowCount;
+                var moveY = 230 / FirstTable.ColumnCount;
+
                 //Рисуем вершины
                 for (int i = 0; i < FirstTable.RowCount; i++)
                 {
-                    var move = 230 / FirstTable.RowCount;
-                    var y = 200 + move * i;
+                    var y = 200 + moveX * i;
 
                     paintXFun(arrayOfxCoordsProiz, 300, y, i);
                     paintXFun(arrayOfxCoordsSum, 550, y, i);
@@ -186,8 +186,7 @@ namespace Kursach21
 
                 for (int j = 0; j < FirstTable.ColumnCount; j++)
                 {
-                    var move = 230 / FirstTable.ColumnCount;
-                    var y = 200 + move * j;
+                    var y = 200 + moveY * j;
 
                     paintYFun(arrayOfyCoordsProiz, 480, y, j);
                     paintYFun(arrayOfyCoordsSum, 730, y, j);
